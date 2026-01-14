@@ -40,10 +40,8 @@ jobs:
         run: uv build
 
       # Don't publish with broken tests.
-      - name: Pytest (wheel)
-        run: uv run --isolated --no-project --with dist/*.whl pytest
-      - name: Pytest (source distribution)
-        run: uv run --isolated --no-project --with dist/*.tar.gz pytest
+      - name: Pytest
+        run: uv run pytest
 
       - name: Publish
         run: uv publish
