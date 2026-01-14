@@ -34,7 +34,7 @@ jobs:
           enable-cache: true
 
       - name: Set project version
-        run: uv version ${{ github.ref_name }}"
+        run: uv version "${{ github.ref_name }}"
 
       - name: Build
         run: uv build
