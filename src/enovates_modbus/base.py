@@ -144,14 +144,18 @@ class EnoClient:
 
     REGISTER_MAPS: ClassVar[tuple[type[RegisterMap], ...]]
 
-    def __init__(self, host: str, port: int = 502, device_id: int = 1):
+    def __init__(self, host: str, port: int = 502, device_id: int = 1, mb_retries: int = 3, mb_timeout: int = 3):
         self.host = host
         self.port = port
         self.device_id = device_id
+        self.mb_retries = mb_retries
+        self.mb_timeout = mb_timeout
 
     @cached_property
     def client(self) -> AsyncModbusTcpClient:
-        return AsyncModbusTcpClient(self.host, port=self.port, name=self.__class__.__qualname__, timeout=1, retries=0)
+        return AsyncModbusTcpClient(
+            self.host, port=self.port, name=self.__class__.__qualname__, timeout=self.mb_timeout, retries=self.mb_retries
+        )
 
     def __str__(self):
         return f"{self.__class__.__name__}(host={self.host!r}, port={self.port!r}, device_id={self.device_id!r})"
