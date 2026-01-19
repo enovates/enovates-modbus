@@ -206,9 +206,12 @@ class EnoOneClient(EnoClient):
     async def set_ems_limit(self, limit: int):
         """
         Set EMS limit in mA.
+        -1 means no limit and is the accepted sensible negative number.
         """
-        if limit < -0x7FFF or limit > 0x7FFF:
+        if limit < -1 or limit > 0x7FFF:
             raise ValueError("EMS limit is out of range.")
+        if limit < 0:
+            limit += 0x10000
         return await self.write_single(EMSLimit.BASE_ADDRESS, limit)
 
     async def get_current_offered(self) -> int:
