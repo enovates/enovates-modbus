@@ -73,3 +73,19 @@ pre-commit install
 
 All checks should pass before you push your code.
 Merge requests with violations are likely to be ignored until they are fully compliant.
+
+### Release process
+
+Create a release on Github with a new tag in the format `v1.0.0`.
+The [release Github Actions workflow](.github/workflows/release.yml) will take care of the rest.
+It will set the version in pyproject.toml, build, run tests, and publish to pypi.
+
+The bumped version is not committed back to the repo to simplify the workflow.
+
+Don't forget to set the new version as dependency in both requirements.txt AND manifest.json on the HA integration!
+
+## Support
+
+This library and the related [Home Assistant integration](https://github.com/enovates/home-assistant-enovates) are provided AS-IS, and without warranty.
+Support may be provided on the repository's [Issue tracker](https://github.com/enovates/enovates-modbus/issues) on a best-effort basis only.
+Please do not file support requests about this library via the Enovates website.
